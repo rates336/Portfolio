@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Statistics {
     String userName = "InFuture";
     String computer = "TurboBell";
-    private HashMap<String, Integer> results = new HashMap<>();
+    protected HashMap<String, Integer> results = new HashMap<>();
 
     public void setResults(String name, int someResult) {
         someResult += results.get(name);
