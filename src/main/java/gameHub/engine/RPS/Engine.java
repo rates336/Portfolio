@@ -27,11 +27,12 @@ public class Engine {
         Scanner s = new Scanner(System.in);
         int playerType = s.nextInt();
         //I am not use seconds because it's near to random choice
-        int computerType =
-                ((getTime().getHour() % 3) * 2 + (getTime().getMinute() + 5)) % 3;
+        int computerType = 1;
         if(playerType == computerType) {
             try {
                 Statistics.setResults(Statistics.getComputer(), 0);
+                System.out.println("It's draw.");
+                Statistics.showStats();
             } catch (Exception e) {
                 System.out.println("Error when added results - draw");
             }
@@ -40,12 +41,16 @@ public class Engine {
                 if(playerType < computerType) {
                     try {
                         Statistics.setResults(Statistics.getUserName(), 1);
+                        System.out.println(Statistics.getUserName() + " won round");
+                        Statistics.showStats();
                     } catch (Exception e) {
                         System.out.println("Error when added results - player win");
                     }
                 } else {
                     try {
                         Statistics.setResults(Statistics.getComputer(), 1);
+                        System.out.println(Statistics.getComputer() + " won round");
+                        Statistics.showStats();
                     } catch (Exception e) {
                         System.out.println("Error when added results - Computer win");
                     }
@@ -54,12 +59,16 @@ public class Engine {
                 if(playerType > computerType) {
                     try {
                         Statistics.setResults(Statistics.getUserName(), 1);
+                        System.out.println(Statistics.getUserName() + " won round");
+                        Statistics.showStats();
                     } catch (Exception e) {
                         System.out.println("Error when added results - player win");
                     }
                 } else {
                     try {
                         Statistics.setResults(Statistics.getComputer(), 1);
+                        System.out.println(Statistics.getComputer() + " won round");
+                        Statistics.showStats();
                     } catch (Exception e) {
                         System.out.println("Error when added results - computer win");
                     }
@@ -124,7 +133,10 @@ public class Engine {
 
         return -1;
     }
-
+    public void analyzeCompType() {
+        System.out.println(Statistics.analyzer(Statistics.getStrategicList()));
+        System.out.println("test");
+    }
 
 
 }
