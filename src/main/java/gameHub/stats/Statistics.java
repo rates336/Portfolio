@@ -8,18 +8,28 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Statistics {
-    static String userName = "SomeUserName";
+    static String userName = "Player";
     static String computer = "TurboBell";
     static String rounds = "Round Played: ";
-    protected static HashMap<String, Integer> results = new HashMap<>();
+    static Map<String, Integer> results = new HashMap<>();
     protected static String[] strategicList = new String[1000];
     protected static String[] compTypedList = new String[1000];
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
     public static void setResults(String name, int someResult) {
         someResult += results.get(name);
         int roundQuantity = results.get("Round Played") + 1;
         results.replace(name, someResult);
         results.replace(rounds, roundQuantity);
+    }
+    public static void setPlayersInResultsMap(String name) {
+        userName = name;
+        results.put(userName, 0);
+        results.put(computer, 0);
+        results.put(rounds, 0);
     }
     public static void setPlayersInResultsMap() {
         results.put(userName, 0);
@@ -74,7 +84,7 @@ public class Statistics {
                 results.get(getComputer()) + " loses and " +
                 (results.get(getRounds()) - results.get(getUserName()) - results.get(getComputer())) +
                 " draws,\n" + rounds + results.get(rounds) +
-                "and showed rock: " + tab[0] + ", paper: " + tab[1] + ", scissors: " + tab[2] + "\n\n" +
+                " and showed rock: " + tab[0] + ", paper: " + tab[1] + ", scissors: " + tab[2] + "\n\n" +
                 computer + ":\n" +
                 "Showed rock: " + tab2[0] + ", paper: " + tab2[1] + ", scissors: " + tab2[2];
     }

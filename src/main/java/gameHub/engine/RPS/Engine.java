@@ -31,6 +31,7 @@ public class Engine {
                     System.out.println("It's draw.");
                     Statistics.showStats();
                 } catch (Exception e) {
+                    e.printStackTrace();
                     System.out.println("Error when added results - draw");
                 }
             } else {

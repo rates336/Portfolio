@@ -1,0 +1,8 @@
+Statistic 
+
+Johny:
+have 0 wins, 0 loses and 0 draws,
+Round Played: 0 and showed rock: 0, paper: 0, scissors: 0
+
+TurboBell:
+Showed rock: 0, paper: 0, scissors: 0
