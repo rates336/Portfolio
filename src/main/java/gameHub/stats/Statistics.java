@@ -14,14 +14,22 @@ public class Statistics {
     static Map<String, Integer> results = new HashMap<>();
     protected static String[] strategicList = new String[1000];
     protected static String[] compTypedList = new String[1000];
-
+    protected static Map<Integer, Integer> roundResult = new HashMap<>();
     @Override
     public int hashCode() {
         return super.hashCode();
     }
     public static void setResults(String name, int someResult) {
-        someResult += results.get(name);
         int roundQuantity = results.get("Round Played") + 1;
+        if(name.equals(getComputer()) && someResult != 0)
+            getRoundResult().put(roundQuantity, 1);
+         else {
+            if(name.equals(getUserName()) && someResult != 0)
+                getRoundResult().put(roundQuantity, -1);
+            else
+                getRoundResult().put(roundQuantity, 0);
+        }
+        someResult += results.get(name);
         results.replace(name, someResult);
         results.replace(rounds, roundQuantity);
     }
@@ -35,6 +43,12 @@ public class Statistics {
         results.put(userName, 0);
         results.put(computer, 0);
         results.put(rounds, 0);
+    }
+    public static Map<Integer, Integer> getRoundResult() {
+        return roundResult;
+    }
+    public static Map<String, Integer> getResults() {
+        return results;
     }
     public static String getUserName() {
         return userName;
@@ -51,7 +65,7 @@ public class Statistics {
     public static String[] getCompTypedList() {
         return compTypedList;
     }
-    protected static int[] typeCalculator(String[] theValue) {
+    public static int[] typeCalculator(String[] theValue) {
         int[] tab = {
             0, 0, 0
         };
