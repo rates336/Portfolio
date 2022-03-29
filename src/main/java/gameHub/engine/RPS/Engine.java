@@ -52,14 +52,12 @@ public class Engine {
                 Statistics.getResults().get(Statistics.getComputer()));
         int max = 0;
         int nearMax = 0;
-        for (int i = 0; i < tab.length; i++) {
-            if(tab[i] > max) {
+        for (int j : tab) {
+            if (j > max) {
                 nearMax = max;
-                max = tab[i];
-            }
-            else
-                if(tab[i] > nearMax)
-                    nearMax = tab[i];
+                max = j;
+            } else if (j > nearMax)
+                nearMax = j;
 
         }
         int[] theTab = {max, nearMax};
@@ -161,8 +159,8 @@ public class Engine {
                     voteTab[0]++;
                 }
             } else {
+                temp = roundPlayerMoves[lastNumberRound - 5];
                 if (tab[counter] == 0) {
-                    temp = roundPlayerMoves[lastNumberRound - 5];
                     if (temp.equals(listOfPossibilities.get(0)))
                         voteTab[0]++;
                     else {
@@ -172,7 +170,6 @@ public class Engine {
                             voteTab[2]++;
                     }
                 } else {
-                    temp = roundPlayerMoves[lastNumberRound - 5];
                     if (temp.equals(oldTemp)) {
                         if (Statistics.getRoundResult().get(lastNumberRound - 5 + counter - 1) == -1) {
                             double[] theTabProportions = {getProportionsMap().get(0),
