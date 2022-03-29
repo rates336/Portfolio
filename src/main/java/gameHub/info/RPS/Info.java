@@ -31,7 +31,7 @@ public class Info {
         System.out.println("For Scissors enter 3");
     }
     public void howToExit() {
-        System.out.println("If you want whenever stop play and save your stats");
+        System.out.println("If you want stop play and save your stats");
         System.out.println("Enter in your turn: SAS");
         System.out.println("This is short from Stop And Save");
         System.out.println("But when you want finish your game and not save stats");
