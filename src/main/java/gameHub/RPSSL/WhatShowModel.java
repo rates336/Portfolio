@@ -1,4 +1,4 @@
-package gameHub.RPS;
+package gameHub.RPSSL;
 
 public interface WhatShowModel {
     String name = null;

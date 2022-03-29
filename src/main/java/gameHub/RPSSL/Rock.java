@@ -1,10 +1,8 @@
-package gameHub.RPS;
-
-import java.util.HashMap;
+package gameHub.RPSSL;
 
 public class Rock implements WhatShowModel {
     String name = "Rock";
-    int theObjectValue = 1;
+    int theObjectValue = 0;
 
     public String getName() {
         return name;

@@ -26,9 +26,9 @@ public class Info {
         System.out.println("For play please enter correct value");
         System.out.println("When you get message info about enter your type");
         System.out.println("you must enter value how explain under the line");
-        System.out.println("For Rock enter: 1 or rock");
-        System.out.println("For Paper enter 2 or paper");
-        System.out.println("For Scissors enter 3 or scissors");
+        System.out.println("For Rock enter: 1");
+        System.out.println("For Paper enter 2");
+        System.out.println("For Scissors enter 3");
     }
     public void howToExit() {
         System.out.println("If you want whenever stop play and save your stats");
