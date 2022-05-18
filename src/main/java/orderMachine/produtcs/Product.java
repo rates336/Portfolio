@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Product {
     private final String name;
     private final boolean isOneSizeProduct;
-    private final String size;
+    private String size;
     private final String defaultDescription;
     private String description;
     private double price;
@@ -13,10 +13,9 @@ public class Product {
     private double[] pricesForSizes;
     private String[] tabOfSizes;
 
-    public Product(String name, String size, String description, String defaultDescription,
+    public Product(String name, String description, String defaultDescription,
                    double[] pricesForSizes) {
         this.name = name;
-        this.size = size;
         this.description = description;
         this.defaultDescription = defaultDescription;
         this.pricesForSizes = pricesForSizes;
