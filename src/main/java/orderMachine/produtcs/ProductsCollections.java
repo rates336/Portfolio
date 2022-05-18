@@ -14,6 +14,7 @@ public class ProductsCollections {
         System.out.println("It's all positions on list, sometimes can be not unique");
         System.out.println(listOfProducts.size());
     }*/
+
     public void addProduct(Product theProduct) {
         if(theProduct.isOneSizeProduct()) {
             System.out.println("Enter name and enter Price, separate this value \",\"");
@@ -53,8 +54,8 @@ public class ProductsCollections {
             }
             //only one error code for any errors
         } else {
-            if(mapOfProductsNoOneSize.containsKey(name + " XS") ||
-                    mapOfProductsNoOneSize.containsKey(name + " size0")) {
+            if(mapOfProductsNoOneSize.containsKey(name + " Size: " + " XS") ||
+                    mapOfProductsNoOneSize.containsKey(name + " Size " + " size0")) {
                 try {
                     Product tempProduct = mapOfProductsNames.get(name);
                     int tempInteger = tempProduct.getAmountOfSizes();
@@ -109,4 +110,16 @@ public class ProductsCollections {
         }
     }
     //deleting sizes of product with map
+
+    public static Map<String, Double> getMapOfProductsOneSize() {
+        return mapOfProductsOneSize;
+    }
+
+    public static Map<String, Double> getMapOfProductsNoOneSize() {
+        return mapOfProductsNoOneSize;
+    }
+
+    public static Map<String, Product> getMapOfProductsNames() {
+        return mapOfProductsNames;
+    }
 }
