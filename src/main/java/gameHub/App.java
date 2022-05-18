@@ -21,6 +21,7 @@ public class App {
         System.out.println(zdanie);
         System.out.println(file.getName() + " " + file.exists());*/
         Statistics.saveStats();
+        e.listFiller();
         List<Integer> theList = e.typeForNext5Rounds();
 
     }
