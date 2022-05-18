@@ -47,6 +47,9 @@ public class Product {
     public String getSize() {
         return size;
     }
+    public String getSize(int number) {
+        return getTabOfSizes()[number];
+    }
 
     public String getDescription() {
         return description;
@@ -120,5 +123,9 @@ public class Product {
 
     public String[] getTabOfSizes() {
         return tabOfSizes;
+    }
+
+    public void setAmountOfSizes(int amountOfSizes) {
+        this.amountOfSizes = amountOfSizes;
     }
 }
