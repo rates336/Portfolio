@@ -30,9 +30,9 @@ public class App {
         order.showTotalPrice();
         order.removeProductToOrder(product);
         System.out.println(Restaurant.getTodayDate());
-        /*Restaurant restaurant = new Restaurant("Alibaba",
-                new Adres("Poland", "Warsaw", "Koszykowa", 10),
-                new Manager("Adrian", 2000),1130,*/0200);
+        Restaurant restaurant = new Restaurant("Alibaba",
+                new Adres("Main Test","Poland", "Warsaw", "Koszykowa", 10),
+                new Manager("Adrian", 2000),1130,0200);
         restaurant.setTimeWhenRestaurantIsOpenAndClose(1200, 2230);
         restaurant.addToTeam(new Manager("Adek", 2000));
         restaurant.addToTeam(new Waiter("Tomek", 2002));
