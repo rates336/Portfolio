@@ -119,4 +119,5 @@ public class ProductsCollections {
     public static Map<String, Product> getMapOfProductsNames() {
         return mapOfProductsNames;
     }
+    //Getters
 }
