@@ -30,6 +30,9 @@ public class Customer implements ICustomer {
 
         }
     }
+    public void createNewOrder(Order order) {
+
+    }
     //Removing adres have only adresName
     public List<IAdres> getCustomerAdresList() {
         return customerAdresList;

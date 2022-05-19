@@ -54,10 +54,20 @@ public class Order {
     }*/
     public double tempSolutionDeliveryCostCalculate() {
         return 7.5;
-    }//now my solution upper not working so it's temp implementation
+    }//now my solution upper is not working so it's temp implementation
     public void addProductToOrder(Product product) {
         listOfProductsOder.add(product);
     }
+    //add new product to order
+    public void removeProductToOrder(Product product) {
+        for (int i = 0; i < listOfProductsOder.size(); i++) {
+            if(product.equals(listOfProductsOder.get(i))) {
+                listOfProductsOder.remove(i);
+                return;
+            }
+        }
+    }
+    //remove product from order
     public void showTotalPrice() {
         totalPrice = 0;
         for (Product tempProduct:
@@ -71,6 +81,8 @@ public class Order {
             totalPrice = totalPrice;
         else
             totalPrice += tempSolutionDeliveryCostCalculate();
+        System.out.println(totalPrice);
 
     }
+    //Total price for all products from order
 }
