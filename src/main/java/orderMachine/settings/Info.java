@@ -1,4 +1,4 @@
-package orderMachine.produtcs;
+package orderMachine.settings;
 
 public class Info {
     public static void helpToAddingManySizesOfProduct() {

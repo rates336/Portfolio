@@ -1,5 +1,7 @@
 package orderMachine.produtcs;
 
+import orderMachine.settings.Info;
+
 import java.util.*;
 
 public class ProductsCollections {
