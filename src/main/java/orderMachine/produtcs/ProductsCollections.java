@@ -6,14 +6,8 @@ public class ProductsCollections {
     public static Map<String, Double> mapOfProductsOneSize = new HashMap<>();
     public static Map<String, Double> mapOfProductsNoOneSize = new HashMap<>();
     public static Map<String, Product> mapOfProductsNames = new HashMap<>();
+    //maps with key as product name + combinations
     Scanner scanner = new Scanner(System.in);
-/*    public void addToListOfProducts(Product product){
-        listOfProducts.add(product);
-    }
-    public void showTotalAmountOfProductList(Product product) {
-        System.out.println("It's all positions on list, sometimes can be not unique");
-        System.out.println(listOfProducts.size());
-    }*/
 
     public void addProduct(Product theProduct) {
         if(theProduct.isOneSizeProduct()) {
@@ -33,7 +27,8 @@ public class ProductsCollections {
                 }
                 mapOfProductsNames.put(theProduct.getName(), theProduct);
                 System.out.println("Process adding successfully finished");
-                //adding product with size as a key and price as a value
+                //adding product name with size as a key and price as a value
+                //adding product with name as a key and product is a value
                 //More can know in method getPriceForTheSize() in Product class
             } catch (Exception e) {
                 System.out.println("Something it's wrong, operation added is not finished #0");
@@ -45,6 +40,7 @@ public class ProductsCollections {
 
     public void removeProduct(String name) {
         if(mapOfProductsOneSize.containsKey(name)) {
+            //checking what is "type size" is the product
             try {
                 mapOfProductsOneSize.remove(name);
                 System.out.println("Operation removing finished successful");
@@ -56,6 +52,7 @@ public class ProductsCollections {
         } else {
             if(mapOfProductsNoOneSize.containsKey(name + " Size: " + "XS") ||
                     mapOfProductsNoOneSize.containsKey(name + " Size: " + "size0")) {
+                //checking default value - first value which must have which exist
                 try {
                     Product tempProduct = mapOfProductsNames.get(name);
                     int tempInteger = tempProduct.getAmountOfSizes();
@@ -92,6 +89,7 @@ public class ProductsCollections {
             }
             //checking what is position the product
             System.out.print(temp == -1 ? "\nsize entered is wrong" : "");
+            //Error message
             try {
                 mapOfProductsNoOneSize.remove(name + " Size: " + tempProduct.getSize(temp));
                 tempProduct.setAmountOfSizes(tempProduct.getAmountOfSizes() - 1);
@@ -101,7 +99,7 @@ public class ProductsCollections {
                             tempProduct.getPriceForTheSize(tempProduct.getSize(i + 1)));
                     mapOfProductsNoOneSize.remove(tempProduct.getName() + " Size: " + tempProduct.getSize(i + 1));
                 }
-                //if size is not, a last all sizes all moving their positions
+                //if size is not a last of all sizes moving sizes on their positions
                 System.out.println("Process removing product size with map finished successfully");
             } catch (Exception e) {
                 System.out.println("Some went wrong while try to delete size");

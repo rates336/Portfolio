@@ -15,11 +15,7 @@ public class App {
         System.out.println(ProductsCollections.getMapOfProductsNoOneSize().get(product.getName() +
                 " Size: " + product.getSize(1)));*/
         collections.removeProduct(product.getName());
-//        System.out.println(product.getSize(3));
         collections.removeProductSize(product.getName(), "size6");
-        //System.out.println(product.hashCode());
-        //product.test();
-        //Product product1 = new Product();
-        //product1.test();
+
     }
 }

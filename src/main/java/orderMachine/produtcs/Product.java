@@ -12,6 +12,7 @@ public class Product {
     private int amountOfSizes;
     private double[] pricesForSizes;
     private String[] tabOfSizes;
+    //values
 
     public Product(String name, String description, String defaultDescription,
                    double[] pricesForSizes) {
@@ -31,7 +32,7 @@ public class Product {
         this.defaultDescription = defaultDescription;
         this.price = price;
         this.isOneSizeProduct = true;
-    }
+    } //Constructors for two cases first for product have sizes and second with one size
     public void setPrice(double price) {
         this.price = price;
     }
@@ -49,14 +50,16 @@ public class Product {
     public String getSize(int number) {
         if(getAmountOfSizes() <= 6)
             return getTabOfSizes()[number];
+        //default cases
         else {
             String[] tempTab = new String[getAmountOfSizes()];
             for (int i = 0; i < getAmountOfSizes(); i++) {
                 tempTab[i] = "size" + i;
             }
             return tempTab[number];
+            //special cases
         }
-    }
+    } //If user not need so much sizes can use default cases which are a good look
     public String getDescription() {
         return description;
     }
@@ -84,21 +87,24 @@ public class Product {
                     return pricesForSizes[4];
                 case "XXL":
                     return pricesForSizes[5];
+                    //return price for default
                 default:
                     System.out.println("Entered wrong size!! " + size);
                     return -1;
+                    //error code
             }
         } else {
             String[] tempTab = new String[getAmountOfSizes()];
             for (int i = 0; i < tempTab.length; i++) {
                 tempTab[i] = "size" + i;
-            }
+            } //creating special cases using pattern size + SizeNumber
             for (int i = 0; i < tempTab.length; i++) {
                 if(tempTab[i].equals(size))
                     return pricesForSizes[i];
-            }
+            } //checking which case is expected by user
             System.out.println("Size is wrong " + size);
             return -1;
+            //error code
         }
     }
 
@@ -118,14 +124,15 @@ public class Product {
         this.description = description;
     }
 
-    public String getSizeOfTab(int numberElementTab) {
+    /*public String getSizeOfTab(int numberElementTab) {
         if(numberElementTab >= tabOfSizes.length ||
                 numberElementTab < 0) {
+            //checking "Do user gave a correct number?"
             System.out.println("Wrong number entered " + numberElementTab);
             return null;
         }
         return tabOfSizes[numberElementTab];
-    }
+    }*/
 
     public String[] getTabOfSizes() {
         return tabOfSizes;
