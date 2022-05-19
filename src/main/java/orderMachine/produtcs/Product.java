@@ -47,9 +47,16 @@ public class Product {
         return size;
     }
     public String getSize(int number) {
-        return getTabOfSizes()[number];
+        if(getAmountOfSizes() <= 6)
+            return getTabOfSizes()[number];
+        else {
+            String[] tempTab = new String[getAmountOfSizes()];
+            for (int i = 0; i < getAmountOfSizes(); i++) {
+                tempTab[i] = "size" + i;
+            }
+            return tempTab[number];
+        }
     }
-
     public String getDescription() {
         return description;
     }
@@ -87,7 +94,7 @@ public class Product {
                 tempTab[i] = "size" + i;
             }
             for (int i = 0; i < tempTab.length; i++) {
-                if(tempTab[i].equals(size + i))
+                if(tempTab[i].equals(size))
                     return pricesForSizes[i];
             }
             System.out.println("Size is wrong " + size);
