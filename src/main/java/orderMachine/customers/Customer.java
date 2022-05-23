@@ -7,10 +7,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Customer implements ICustomer {
-    private final String name = null;
-    private final int birthYear = 0;
+    private String name = null;
+    private int birthYear = 0;
     private List<IAdres> customerAdresList = new LinkedList<>();
     private List<Order> customerOrderHistory = new ArrayList<>();
+
+    public Customer(String name, int birthYear, Adres adres) {
+        this.name = name;
+        this.birthYear = birthYear;
+        addAdres(adres);
+    }
+
     //basic data about Customer
     public void addAdres(Adres adres) {
         customerAdresList.add(adres);

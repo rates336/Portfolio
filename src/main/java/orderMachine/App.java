@@ -5,21 +5,23 @@ import orderMachine.orders.Order;
 import orderMachine.produtcs.Product;
 import orderMachine.produtcs.ProductsCollections;
 import orderMachine.restaurant.Restaurant;
+import orderMachine.settings.DefaultValues;
 import orderMachine.workers.Chef;
 import orderMachine.workers.Manager;
 import orderMachine.workers.Waiter;
+import orderMachine.workers.Worker;
 
 public class App {
     public static void main(String[] args) {
-        Product product = new Product("burger", "rarar", "rararara",
+/*        Product product = new Product("burger", "rarar", "rararara",
                 new double[]{0,1,2,3,4,5,6,7,8});
         //ProductsCollections collections = new ProductsCollections();
         //collections.addProduct(product);
         //System.out.println(product.getName());
-        /*System.out.println(ProductsCollections.getMapOfProductsNames().get(product.getName()).getPriceForTheSize("L"));
+        System.out.println(ProductsCollections.getMapOfProductsNames().get(product.getName()).getPriceForTheSize("L"));
         System.out.println(ProductsCollections.getMapOfProductsNoOneSize().get(product.getName() + " Size: M"));
         System.out.println(ProductsCollections.getMapOfProductsNoOneSize().get(product.getName() +
-                " Size: " + product.getSize(1)));*/
+                " Size: " + product.getSize(1)));
         //collections.removeProduct(product.getName());
         //collections.removeProductSize(product.getName(), "size6");
 
@@ -38,9 +40,17 @@ public class App {
         restaurant.addToTeam(new Waiter("Tomek", 2002));
         restaurant.addToTeam(new Waiter("Ula", 2001));
         restaurant.removeFromTeam(new Waiter("Ula", 2001));
-        restaurant.showActualRestaurantTeam();
-
-
+        restaurant.showActualRestaurantTeam();*/
+        Restaurant restaurant = DefaultValues.createDefault1Restaurant()[0];
+        Worker[] tabOfDefaultWorkers = DefaultValues.createDefaultUltimateTeam();
+        for (int i = 0; i < tabOfDefaultWorkers.length; i++) {
+            restaurant.addToTeam(tabOfDefaultWorkers[i]);
+        }
+        //restaurant.showActualRestaurantTeam();
+        restaurant.showTimeOpenAndCloseRestaurant();
+        restaurant.setTimeWhenRestaurantIsOpenAndClose(9.30, 23.30);
+        restaurant.showTimeOpenAndCloseRestaurant();
+        restaurant.removeFromTeam(restaurant.getRestaurantTeam().get(7));
 
     }
 }
