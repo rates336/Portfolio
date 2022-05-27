@@ -11,25 +11,25 @@ public class DefaultValues {
 
     public static Product[] create10DefaultProducts() {
         Product product0 = new Product("Vege Burger", "Vege Burger", "Vege Burger",
-                new double[]{0,1,2,3});
+                15, new double[]{0,1,2,3});
         Product product1 = new Product("Ham Burger", "Ham Burger", "Ham Burger",
-                new double[]{0,1,2,3});
+                18, new double[]{0,1,2,3});
         Product product2 = new Product("Pizza", "Pizza", "Pizza",
-                new double[]{0,1,2,3,4,5,6,7,8,9,10,11});
+                10, new double[]{0,1,2,3,4,5,6,7,8,9,10,11});
         Product product3 = new Product("Fries", "Fries", "Fries",
-                new double[]{0,1,2});
+                4, new double[]{0,1,2});
         Product product4 = new Product("Belgian Fries", "Belgian Fries", "Belgian Fries",
-                new double[]{0,1,2});
+                5, new double[]{0,1,2});
         Product product5 = new Product("Salad with chicken", "Salad with chicken", "Salad with chicken",
-                new double[]{0,1});
+                6, new double[]{0,1});
         Product product6 = new Product("Salad with Tuna", "Salad with Tuna", "Salad with Tuna",
-                new double[]{0,1});
+                6, new double[]{0,1});
         Product product7 = new Product("Salad without meet", "Salad without meet", "Salad without meet",
-                new double[]{0,1});
+                6, new double[]{0,1});
         Product product8 = new Product("Tomato Soup", "M", "Tomato Soup", "Tomato Soup",
-                10.0);
+                8, 10.0);
         Product product9 = new Product("Special meal","L", "Special meal", "Special meal",
-                24.99);
+                20, 24.99);
         return new Product[]{product0, product1, product2, product3, product4,
                 product5, product6, product7, product8, product9};
     }

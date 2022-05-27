@@ -12,25 +12,28 @@ public class Product {
     private int amountOfSizes;
     private double[] pricesForSizes;
     private String[] tabOfSizes;
+    private int neededTimeToMakeInSeconds;
     //values
 
     public Product(String name, String description, String defaultDescription,
-                   double[] pricesForSizes) {
+                   int neededTimeToMakeInSeconds, double[] pricesForSizes) {
         this.name = name;
         this.description = description;
         this.defaultDescription = defaultDescription;
         this.pricesForSizes = pricesForSizes;
         this.isOneSizeProduct = false;
         this.amountOfSizes = this.pricesForSizes.length;
+        this.neededTimeToMakeInSeconds = neededTimeToMakeInSeconds;
         tabOfSizes = new String[]{"XS", "S", "M", "L", "XL", "XXL"};
     }
     public Product(String name, String size, String description, String defaultDescription,
-                   double price) {
+                   int neededTimeToMakeInSeconds, double price) {
         this.name = name;
         this.size = size;
         this.description = description;
         this.defaultDescription = defaultDescription;
         this.price = price;
+        this.neededTimeToMakeInSeconds = neededTimeToMakeInSeconds;
         this.isOneSizeProduct = true;
     } //Constructors for two cases first for product have sizes and second with one size
     public void setPrice(double price) {
@@ -140,5 +143,9 @@ public class Product {
 
     public void setAmountOfSizes(int amountOfSizes) {
         this.amountOfSizes = amountOfSizes;
+    }
+
+    public int getNeededTimeToMakeInSeconds() {
+        return neededTimeToMakeInSeconds;
     }
 }

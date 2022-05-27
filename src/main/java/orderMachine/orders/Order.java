@@ -15,6 +15,8 @@ public class Order {
     private double distance;
     private double amountWhenDeliveryIsFree;
     static Map<Integer, Integer> costForDeliveryDistance = new HashMap<>();
+    private boolean isCompleted;
+    private int makingTimeInSeconds;
     //basic information
 
     public static void setCostForDeliveryDistance() {
@@ -57,6 +59,7 @@ public class Order {
     }//now my solution upper is not working so it's temp implementation
     public void addProductToOrder(Product product) {
         listOfProductsOder.add(product);
+        makingTimeInSeconds += product.getNeededTimeToMakeInSeconds();
     }
     //add new product to order
     public void removeProductToOrder(Product product) {
@@ -85,4 +88,18 @@ public class Order {
 
     }
     //Total price for all products from order
+
+    public boolean getIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    public int getMakingTimeInSeconds() {
+        return makingTimeInSeconds;
+    }
+
+    //Getter and Setter Do order are completed
 }
