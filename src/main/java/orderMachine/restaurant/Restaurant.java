@@ -3,6 +3,7 @@ package orderMachine.restaurant;
 import orderMachine.customers.Adres;
 import orderMachine.orders.Order;
 import orderMachine.produtcs.Product;
+import orderMachine.workers.Chef;
 import orderMachine.workers.Manager;
 import orderMachine.workers.Waiter;
 import orderMachine.workers.Worker;
@@ -23,7 +24,9 @@ public class Restaurant {
     private List<Worker> restaurantTeam = new LinkedList<>();
     DateFormat format = new SimpleDateFormat("hh:mm:ss");
     private List<Order> listOfTodayOrders = new ArrayList<>();
+    private List<Order> listOfWaitingOrders = new ArrayList<>();
     private List<List<Order>> listOfListOrders = new ArrayList<>();
+    private Order[] currentMakingOrders;
     private int currentMinutes;
     private int currentSeconds;
     private int currentRemainingTime;
@@ -38,6 +41,8 @@ public class Restaurant {
         this.timeCloseRestaurant = timeCloseRestaurant;
         System.out.println(format.format(today));
         System.out.println("Restaurant Created Successful");
+        currentMakingOrders = new Order[returnNumberOfTypeWorker(new Chef("xyz", 0))];
+        Arrays.fill(currentMakingOrders, null);
     }
     //Constructor
 
@@ -142,29 +147,37 @@ public class Restaurant {
     public void addOrder(Order order) {
         listOfTodayOrders.add(order);
         currentRemainingTime += order.getMakingTimeInSeconds();
+        for (int i = 0; i < currentMakingOrders.length; i++) {
+            if(currentMakingOrders[i] == null) {
+                currentMakingOrders[i] = order;
+                return;
+            }
+        }
+        listOfWaitingOrders.add(order);
     }
 
     public void setTimeToCompleteMeal(Order order) {
         currentRemainingTime = order.getMakingTimeInSeconds();
     }
 
-    public int whenFinished(int timeInSeconds){
-        int tempSeconds = Calendar.SECOND;
-        int tempMinutes = Calendar.MINUTE;
-        int tempHours = Calendar.HOUR;
-        if(timeInSeconds == 60) {
-            if(tempMinutes == 59) {
-                int tempS = tempSeconds;
-                while (tempMinutes == 59 || tempS > tempSeconds) {
-                    tempMinutes = Calendar.MINUTE;
-                    tempSeconds = Calendar.SECOND;
-                    //wait(500);
-                }
-            }
-        } else {
-
+    public void tryCompleteOrder(String forStart) {
+        //if(Pantry have Order.neededElements)
+        //in future this if check does restaurant have a needed elements to cook meal
+        int[] leftTimeMaking = new int[currentMakingOrders.length];
+        for (int i = 0; i < leftTimeMaking.length; i++) {
+            leftTimeMaking[i] = currentMakingOrders[i].getMakingTimeInSeconds();
         }
-        //This method assumes that 60 seconds in program in real time is 60 minutes
-        //and 1 hour is a maximum time which can be making meal
+    }
+    public void tryCompleteOrder() {
+
+    }
+    public int returnNumberOfTypeWorker(Worker worker) {
+        int temp = 0;
+        for (Worker tempWorker:
+             restaurantTeam) {
+            if(tempWorker.getPosition().equals(worker.getPosition()))
+                temp++;
+        }
+        return temp;
     }
 }

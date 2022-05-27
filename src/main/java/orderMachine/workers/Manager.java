@@ -7,8 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Manager implements Worker {
-    String name;
-    int birthYear;
+    private final String name;
+    private final int birthYear;
+    private final String position;
     //basic info
     private List<Order> historyOfActualOrdersCompletedInRestaurant = new LinkedList<>();
     private List<Order> historyOfActualOrdersNotCompletedInRestaurant = new LinkedList<>();
@@ -19,6 +20,7 @@ public class Manager implements Worker {
     public Manager(String name, int birthYear) {
         this.name = name;
         this.birthYear = birthYear;
+        position = "Manager";
     }
 
     public String getName() {
@@ -48,6 +50,12 @@ public class Manager implements Worker {
     public List<Order> getQueueOfActualOrdersInRestaurant() {
         return queueOfActualOrdersInRestaurant;
     }
+
+    @Override
+    public String getPosition() {
+        return position;
+    }
+
     //Getters
     public void setHistoryOfActualOrdersCompletedInRestaurant(List<Order> historyOfActualOrdersCompletedInRestaurant) {
         this.historyOfActualOrdersCompletedInRestaurant = historyOfActualOrdersCompletedInRestaurant;

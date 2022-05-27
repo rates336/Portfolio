@@ -9,6 +9,7 @@ import java.util.List;
 public class Chef implements Worker {
     private final String name;
     private final int birthYear;
+    private final String position;
     //basic info
     private List<Order> historyOfActualOrdersCompleted = new LinkedList<>();
     private List<Order> historyOfActualOrdersNotCompleted = new LinkedList<>();
@@ -20,6 +21,7 @@ public class Chef implements Worker {
     public Chef(String name, int birthYear) {
         this.name = name;
         this.birthYear = birthYear;
+        position = "Chef";
     }
 
     public String getName() {
@@ -69,6 +71,10 @@ public class Chef implements Worker {
 
     public void setQueueOfActualOrders(List<Order> queueOfActualOrders) {
         this.queueOfActualOrders = queueOfActualOrders;
+    }
+
+    public String getPosition() {
+        return position;
     }
 
     //Setters

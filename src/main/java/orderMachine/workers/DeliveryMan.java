@@ -9,6 +9,7 @@ import java.util.List;
 public class DeliveryMan implements Worker {
     private final String name;
     private final int birthYear;
+    private final String position;
     //basic info
     private List<Order> historyOfActualOrdersCompleted = new LinkedList<>();
     private List<Order> historyOfActualOrdersNotCompleted = new LinkedList<>();
@@ -19,6 +20,7 @@ public class DeliveryMan implements Worker {
     public DeliveryMan(String name, int birthYear) {
         this.name = name;
         this.birthYear = birthYear;
+        position = "DeliveryMan";
     }
 
     public String getName() {
@@ -58,6 +60,12 @@ public class DeliveryMan implements Worker {
     public void setQueueOfActualOrders(List<Order> queueOfActualOrders) {
         this.queueOfActualOrders = queueOfActualOrders;
     }
+
+    @Override
+    public String getPosition() {
+        return position;
+    }
+
     //Setters
     public void addOrderToQueue(Order order) {
         queueOfActualOrders.add(order);
