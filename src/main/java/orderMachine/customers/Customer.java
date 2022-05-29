@@ -1,5 +1,7 @@
 package orderMachine.customers;
 
+import orderMachine.adres.Adres;
+import orderMachine.adres.IAdres;
 import orderMachine.orders.Order;
 
 import java.util.ArrayList;

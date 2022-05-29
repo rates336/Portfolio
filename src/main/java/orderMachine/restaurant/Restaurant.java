@@ -1,17 +1,12 @@
 package orderMachine.restaurant;
 
-import orderMachine.customers.Adres;
+import orderMachine.adres.Adres;
 import orderMachine.orders.Order;
-import orderMachine.produtcs.Product;
-import orderMachine.workers.Chef;
 import orderMachine.workers.Manager;
-import orderMachine.workers.Waiter;
 import orderMachine.workers.Worker;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 public class Restaurant {
@@ -29,7 +24,9 @@ public class Restaurant {
     private Order[] currentMakingOrders;
     private int currentMinutes;
     private int currentSeconds;
-    private int currentRemainingTime;
+    //private int currentRemainingTime;
+    private int currentTimeSec;
+    private int currentTimeMin;
     //basic info restaurant
 
     public Restaurant(String restaurantName, Adres restaurantAdres, Manager managerRestaurant,
@@ -41,17 +38,18 @@ public class Restaurant {
         this.timeCloseRestaurant = timeCloseRestaurant;
         System.out.println(format.format(today));
         System.out.println("Restaurant Created Successful");
-        currentMakingOrders = new Order[returnNumberOfTypeWorker(new Chef("xyz", 0))];
+        currentMakingOrders = new Order[3];
+        //returnNumberOfTypeWorker(new Chef("xyz", 0)) this code not working, returning 0 probably
         Arrays.fill(currentMakingOrders, null);
     }
     //Constructor
 
-    public static Date getTodayDate() {
-        return today;
+    public Date getTodayDate() {
+        return new Date();
     }//Getter
 
     public void start(){
-        currentRemainingTime = 0;
+        //currentRemainingTime = 0;
         currentSeconds = Calendar.SECOND;
         currentMinutes = Calendar.MINUTE;
         //import starej listy listOfListOrders
@@ -146,30 +144,96 @@ public class Restaurant {
 
     public void addOrder(Order order) {
         listOfTodayOrders.add(order);
-        currentRemainingTime += order.getMakingTimeInSeconds();
+        //currentRemainingTime += order.getMakingTimeInSeconds();
         for (int i = 0; i < currentMakingOrders.length; i++) {
             if(currentMakingOrders[i] == null) {
                 currentMakingOrders[i] = order;
+                tryCompleteOrder(i);
                 return;
             }
         }
         listOfWaitingOrders.add(order);
+        System.out.println("Order added successful");
     }
 
-    public void setTimeToCompleteMeal(Order order) {
+    /*public void setTimeToCompleteOrder(Order order) {
         currentRemainingTime = order.getMakingTimeInSeconds();
-    }
+    }*/
 
-    public void tryCompleteOrder(String forStart) {
-        //if(Pantry have Order.neededElements)
-        //in future this if check does restaurant have a needed elements to cook meal
-        int[] leftTimeMaking = new int[currentMakingOrders.length];
+    public void startCompleteOrder() {
+        /*int[] leftTimeMaking = new int[currentMakingOrders.length];
         for (int i = 0; i < leftTimeMaking.length; i++) {
             leftTimeMaking[i] = currentMakingOrders[i].getMakingTimeInSeconds();
+        }*/
+        int temp = -1;
+        for (int i = 0; i < currentMakingOrders.length; i++) {
+            if(currentMakingOrders[i] == null) {
+                temp = i;
+                break;
+            }
         }
+        if(temp > -1)
+            tryCompleteOrder(temp);
+        else
+            System.out.println("All Chefs working now, try again later");
     }
-    public void tryCompleteOrder() {
+    public boolean wait(int seconds) {
+        Calendar cal = new GregorianCalendar();
 
+        int startSec = cal.get(Calendar.SECOND);
+        int startMin = cal.get(Calendar.MINUTE);
+        int minutes = (Calendar.SECOND + seconds) / 60;
+        if(Calendar.SECOND + seconds >= 60) {
+            seconds = (Calendar.SECOND + seconds) % 60;
+            while(Calendar.MINUTE < startMin + minutes){
+                cal.setTime(new Date());
+                System.out.println(cal.getTime() + " Min");
+            }
+        }
+        while (cal.get(Calendar.SECOND) + (60 * minutes) < startSec + seconds) {
+            cal.setTime(new Date());
+            System.out.println(cal.getTime() + " Sec");
+        }
+        return true;
+    }
+    public void tryCompleteOrder(int numberOfPlace) {
+        //if(Pantry have Order.neededElements)
+        //in future this if check does restaurant have a needed elements to cook meal
+        //in future here is
+        //verification does is not, a doubled the order
+        Order tempOrder = currentMakingOrders[numberOfPlace];
+        for (int i = numberOfPlace; i < currentMakingOrders.length - 1; i++) {
+            currentMakingOrders[i] = currentMakingOrders[i + 1];
+        }
+        currentMakingOrders[currentMakingOrders.length - 1] = listOfWaitingOrders.get(0);
+        listOfWaitingOrders.remove(currentMakingOrders[currentMakingOrders.length - 1]);
+        int[] timeToMakeOrder = new int[currentMakingOrders.length];
+        OptionalInt min;
+        while (Arrays.stream(currentMakingOrders).filter(e -> e != null).count() > 0) {
+            timeToMakeOrder = Arrays.stream(currentMakingOrders)
+                    .filter(e -> e != null).mapToInt(e -> e.getMakingTimeInSeconds()).toArray();
+            if(Arrays.stream(timeToMakeOrder).filter(e -> e > 0).count() > 0)
+                min = Arrays.stream(timeToMakeOrder).min();
+
+
+
+        }
+        wait(tempOrder.getMakingTimeInSeconds());
+        {
+            //if dostawa
+            //wait 2 min + czas dostawy
+            //else 2 min
+            tempOrder.setIsCompleted(true);
+        }
+        System.out.print("Order: " + tempOrder + " for " + tempOrder.getCustomer());
+        if(tempOrder.isDeliveryOrNot())
+            System.out.println(" and delivered to adres: " + tempOrder.getCustomer().getCustomerAdresList());
+        //In future is not, a list, and it is the delivery adres
+        else
+            System.out.println(" and picked to table: " + tempOrder);
+        //in future this is a number of table
+        listOfTodayOrders.add(tempOrder);
+        tryCompleteOrder(currentMakingOrders.length - 1);
     }
     public int returnNumberOfTypeWorker(Worker worker) {
         int temp = 0;

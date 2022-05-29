@@ -1,15 +1,17 @@
 package orderMachine;
 
-import orderMachine.customers.Adres;
+import orderMachine.customers.Customer;
 import orderMachine.orders.Order;
 import orderMachine.produtcs.Product;
-import orderMachine.produtcs.ProductsCollections;
 import orderMachine.restaurant.Restaurant;
 import orderMachine.settings.DefaultValues;
-import orderMachine.workers.Chef;
-import orderMachine.workers.Manager;
-import orderMachine.workers.Waiter;
 import orderMachine.workers.Worker;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -51,6 +53,21 @@ public class App {
         restaurant.setTimeWhenRestaurantIsOpenAndClose(9.30, 23.30);
         restaurant.showTimeOpenAndCloseRestaurant();
         restaurant.removeFromTeam(restaurant.getRestaurantTeam().get(7));
+        List<Product> theList = new LinkedList<>();
+        theList.add(DefaultValues.create10DefaultProducts()[3]);
+        //restaurant.addOrder(new Order(theList, false, 3.45,
+        //        DefaultValues.createDefault3Customers()[1]));
+        //        DefaultValues.createDefault3Customers()[1]));
+        //restaurant.startCompleteOrder();
+
+        Order[] testTab = new Order[5];
+        for (int i = 0; i < testTab.length; i++) {
+            testTab[i] = null;
+        }
+        Arrays.stream(testTab).forEach(System.out::println);
+        System.out.println(Arrays.stream(testTab).filter(e -> e != null).count());
+
+
 
     }
 }

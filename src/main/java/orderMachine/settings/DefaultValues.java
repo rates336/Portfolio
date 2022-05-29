@@ -1,8 +1,7 @@
 package orderMachine.settings;
 
-import orderMachine.customers.Adres;
+import orderMachine.adres.Adres;
 import orderMachine.customers.Customer;
-import orderMachine.customers.ICustomer;
 import orderMachine.produtcs.Product;
 import orderMachine.restaurant.Restaurant;
 import orderMachine.workers.*;

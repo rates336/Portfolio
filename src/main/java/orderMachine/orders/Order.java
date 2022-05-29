@@ -1,5 +1,6 @@
 package orderMachine.orders;
 
+import orderMachine.customers.Customer;
 import orderMachine.produtcs.Product;
 
 import java.util.*;
@@ -17,7 +18,16 @@ public class Order {
     static Map<Integer, Integer> costForDeliveryDistance = new HashMap<>();
     private boolean isCompleted;
     private int makingTimeInSeconds;
+    private Customer customer;
     //basic information
+
+
+    public Order(List<Product> listOfProductsOder, boolean deliveryOrNot, double distance, Customer customer) {
+        this.listOfProductsOder = listOfProductsOder;
+        this.deliveryOrNot = deliveryOrNot;
+        this.distance = distance;
+        this.customer = customer;
+    }
 
     public static void setCostForDeliveryDistance() {
         Order.costForDeliveryDistance.put(1, 5);
@@ -101,5 +111,40 @@ public class Order {
         return makingTimeInSeconds;
     }
 
+    public List<Product> getListOfProductsOder() {
+        return listOfProductsOder;
+    }
+
+    public boolean isDeliveryOrNot() {
+        return deliveryOrNot;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public double getDeliveryCost() {
+        return deliveryCost;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public double getAmountWhenDeliveryIsFree() {
+        return amountWhenDeliveryIsFree;
+    }
+
+    public static Map<Integer, Integer> getCostForDeliveryDistance() {
+        return costForDeliveryDistance;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
     //Getter and Setter Do order are completed
 }

@@ -1,4 +1,6 @@
-package orderMachine.customers;
+package orderMachine.adres;
+
+import orderMachine.adres.IAdres;
 
 public class Adres implements IAdres {
     private String nameAdres = null;

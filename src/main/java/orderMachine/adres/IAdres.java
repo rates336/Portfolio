@@ -1,4 +1,4 @@
-package orderMachine.customers;
+package orderMachine.adres;
 
 public interface IAdres {
     String nameAdres = null;

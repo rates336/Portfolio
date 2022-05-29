@@ -1,5 +1,8 @@
 package orderMachine.customers;
 
+import orderMachine.adres.Adres;
+import orderMachine.adres.IAdres;
+
 import java.util.LinkedList;
 import java.util.List;
 
