@@ -55,17 +55,19 @@ public class App {
         restaurant.removeFromTeam(restaurant.getRestaurantTeam().get(7));
         List<Product> theList = new LinkedList<>();
         theList.add(DefaultValues.create10DefaultProducts()[3]);
+
         restaurant.start();
         //restaurant.addOrder(new Order(theList, false, 3.45,
         //        DefaultValues.createDefault3Customers()[1]));
-        restaurant.addOrder((new Order(DefaultValues.create10DefaultProducts()[1],false, 1,
-                DefaultValues.createDefault3Customers()[0])));
+        restaurant.addOrder((new Order(DefaultValues.create10DefaultProducts()[1],
+                DefaultValues.create10DefaultProducts()[1].getAndSetSize(2),
+                false, 1, DefaultValues.createDefault3Customers()[0])));
 /*        restaurant.addOrder((new Order(DefaultValues.create10DefaultProducts()[1],false, 1,
                 DefaultValues.createDefault3Customers()[1])));
         restaurant.addOrder((new Order(DefaultValues.create10DefaultProducts()[1],false, 1,
                 DefaultValues.createDefault3Customers()[2])));*/
         restaurant.startCompleteOrder();
-
+        System.out.println(theList.get(0));
 /*
         Order[] testTab = new Order[5];
         for (int i = 0; i < testTab.length; i++) {
