@@ -28,6 +28,12 @@ public class Order {
         this.distance = distance;
         this.customer = customer;
     }
+    public Order(Product product, boolean deliveryOrNot, double distance, Customer customer) {
+        listOfProductsOder.add(product);
+        this.deliveryOrNot = deliveryOrNot;
+        this.distance = distance;
+        this.customer = customer;
+    }
 
     public static void setCostForDeliveryDistance() {
         Order.costForDeliveryDistance.put(1, 5);

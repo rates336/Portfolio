@@ -4,10 +4,13 @@ import orderMachine.adres.Adres;
 import orderMachine.orders.Order;
 import orderMachine.workers.Manager;
 import orderMachine.workers.Worker;
+import org.w3c.dom.ls.LSOutput;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.ToIntFunction;
+import java.util.stream.Stream;
 
 public class Restaurant {
     static Date today = new Date();
@@ -38,7 +41,7 @@ public class Restaurant {
         this.timeCloseRestaurant = timeCloseRestaurant;
         System.out.println(format.format(today));
         System.out.println("Restaurant Created Successful");
-        currentMakingOrders = new Order[3];
+        currentMakingOrders = new Order[4];
         //returnNumberOfTypeWorker(new Chef("xyz", 0)) this code not working, returning 0 probably
         Arrays.fill(currentMakingOrders, null);
     }
@@ -144,15 +147,15 @@ public class Restaurant {
 
     public void addOrder(Order order) {
         listOfTodayOrders.add(order);
+        listOfWaitingOrders.add(order);
         //currentRemainingTime += order.getMakingTimeInSeconds();
-        for (int i = 0; i < currentMakingOrders.length; i++) {
+        /*for (int i = 0; i < currentMakingOrders.length; i++) {
             if(currentMakingOrders[i] == null) {
                 currentMakingOrders[i] = order;
                 tryCompleteOrder(i);
-                return;
+                break;
             }
-        }
-        listOfWaitingOrders.add(order);
+        }*/
         System.out.println("Order added successful");
     }
 
@@ -165,17 +168,22 @@ public class Restaurant {
         for (int i = 0; i < leftTimeMaking.length; i++) {
             leftTimeMaking[i] = currentMakingOrders[i].getMakingTimeInSeconds();
         }*/
-        int temp = -1;
-        for (int i = 0; i < currentMakingOrders.length; i++) {
-            if(currentMakingOrders[i] == null) {
-                temp = i;
-                break;
+        if(!listOfWaitingOrders.isEmpty()) {
+            for (int i = 0; i < currentMakingOrders.length; i++) {
+                if (currentMakingOrders[i] == null) {
+                    currentMakingOrders[i] = listOfWaitingOrders.get(0);
+                    listOfWaitingOrders.remove(0);
+                    if(listOfWaitingOrders.isEmpty())
+                        break;
+                } else {
+                    if(currentMakingOrders.length - 1 == i)
+                        System.out.println("All Chefs working now");
+                }
             }
+        } else {
+            System.out.println("List of waiting orders is empty.");
         }
-        if(temp > -1)
-            tryCompleteOrder(temp);
-        else
-            System.out.println("All Chefs working now, try again later");
+        tryCompleteOrder();
     }
     public boolean wait(int seconds) {
         Calendar cal = new GregorianCalendar();
@@ -196,29 +204,46 @@ public class Restaurant {
         }
         return true;
     }
-    public void tryCompleteOrder(int numberOfPlace) {
+    public void tryCompleteOrder() {
         //if(Pantry have Order.neededElements)
         //in future this if check does restaurant have a needed elements to cook meal
         //in future here is
         //verification does is not, a doubled the order
-        Order tempOrder = currentMakingOrders[numberOfPlace];
+        /*Order tempOrder = currentMakingOrders[numberOfPlace];
         for (int i = numberOfPlace; i < currentMakingOrders.length - 1; i++) {
             currentMakingOrders[i] = currentMakingOrders[i + 1];
         }
         currentMakingOrders[currentMakingOrders.length - 1] = listOfWaitingOrders.get(0);
-        listOfWaitingOrders.remove(currentMakingOrders[currentMakingOrders.length - 1]);
+        listOfWaitingOrders.remove(currentMakingOrders[currentMakingOrders.length - 1]);*/
         int[] timeToMakeOrder = new int[currentMakingOrders.length];
-        OptionalInt min;
-        while (Arrays.stream(currentMakingOrders).filter(e -> e != null).count() > 0) {
+        int min;
+
+        while (Arrays.stream(currentMakingOrders).anyMatch(Objects::nonNull)) {
             timeToMakeOrder = Arrays.stream(currentMakingOrders)
-                    .filter(e -> e != null).mapToInt(e -> e.getMakingTimeInSeconds()).toArray();
-            if(Arrays.stream(timeToMakeOrder).filter(e -> e > 0).count() > 0)
-                min = Arrays.stream(timeToMakeOrder).min();
+                    .filter(e -> e != null).mapToInt(Order::getMakingTimeInSeconds).toArray();
 
-
-
+            if (Arrays.stream(timeToMakeOrder).anyMatch(e -> e > 0)) {
+                //min = Arrays.stream(currentMakingOrders).
+                min = Arrays.stream(timeToMakeOrder).min().orElse(0);
+                if (wait(min)) {
+                    for (int i = 0; i < timeToMakeOrder.length; i++) {
+                        timeToMakeOrder[i] -= min;
+                        if (timeToMakeOrder[i] <= 0) {
+                            if (timeToMakeOrder[i] == 0) {
+                                System.out.println("Order for " + currentMakingOrders[i].getCustomer() + " has been finished.");
+                                //dodaj do utargu
+                                currentMakingOrders[i] = null;
+                            }
+                            if (!listOfWaitingOrders.isEmpty()) {
+                                currentMakingOrders[i] = listOfWaitingOrders.get(0);
+                                listOfWaitingOrders.remove(0);
+                            }
+                        }
+                    }
+                }
+            }
         }
-        wait(tempOrder.getMakingTimeInSeconds());
+        /*wait(tempOrder.getMakingTimeInSeconds());
         {
             //if dostawa
             //wait 2 min + czas dostawy
@@ -233,7 +258,7 @@ public class Restaurant {
             System.out.println(" and picked to table: " + tempOrder);
         //in future this is a number of table
         listOfTodayOrders.add(tempOrder);
-        tryCompleteOrder(currentMakingOrders.length - 1);
+        tryCompleteOrder(currentMakingOrders.length - 1);*/
     }
     public int returnNumberOfTypeWorker(Worker worker) {
         int temp = 0;
