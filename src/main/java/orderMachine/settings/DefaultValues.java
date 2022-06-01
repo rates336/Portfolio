@@ -9,25 +9,25 @@ import orderMachine.workers.*;
 public class DefaultValues {
 
     public static Product[] create10DefaultProducts() {
-        Product product0 = new Product("Vege Burger", "Vege Burger", "Vege Burger",
+        Product product0 = new Product("Vege Burger", 2, "Vege Burger", "Vege Burger",
                 15, new double[]{0,1,2,3});
-        Product product1 = new Product("Ham Burger", "Ham Burger", "Ham Burger",
+        Product product1 = new Product("Ham Burger", 3, "Ham Burger", "Ham Burger",
                 18, new double[]{0,1,2,3});
-        Product product2 = new Product("Pizza", "Pizza", "Pizza",
+        Product product2 = new Product("Pizza", 5,"Pizza", "Pizza",
                 10, new double[]{0,1,2,3,4,5,6,7,8,9,10,11});
-        Product product3 = new Product("Fries", "Fries", "Fries",
+        Product product3 = new Product("Fries", 1, "Fries", "Fries",
                 4, new double[]{0,1,2});
-        Product product4 = new Product("Belgian Fries", "Belgian Fries", "Belgian Fries",
+        Product product4 = new Product("Belgian Fries", 2, "Belgian Fries", "Belgian Fries",
                 5, new double[]{0,1,2});
-        Product product5 = new Product("Salad with chicken", "Salad with chicken", "Salad with chicken",
+        Product product5 = new Product("Salad with chicken", 1,"Salad with chicken", "Salad with chicken",
                 6, new double[]{0,1});
-        Product product6 = new Product("Salad with Tuna", "Salad with Tuna", "Salad with Tuna",
+        Product product6 = new Product("Salad with Tuna", 1,"Salad with Tuna", "Salad with Tuna",
                 6, new double[]{0,1});
-        Product product7 = new Product("Salad without meet", "Salad without meet", "Salad without meet",
+        Product product7 = new Product("Salad without meet", 0,"Salad without meet", "Salad without meet",
                 6, new double[]{0,1});
-        Product product8 = new Product("Tomato Soup", "M", "Tomato Soup", "Tomato Soup",
+        Product product8 = new Product("Tomato Soup", "Tomato Soup", "Tomato Soup",
                 8, 10.0);
-        Product product9 = new Product("Special meal","L", "Special meal", "Special meal",
+        Product product9 = new Product("Special meal", "Special meal", "Special meal",
                 20, 24.99);
         return new Product[]{product0, product1, product2, product3, product4,
                 product5, product6, product7, product8, product9};

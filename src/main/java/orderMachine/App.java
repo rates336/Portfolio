@@ -60,7 +60,6 @@ public class App {
         //restaurant.addOrder(new Order(theList, false, 3.45,
         //        DefaultValues.createDefault3Customers()[1]));
         restaurant.addOrder((new Order(DefaultValues.create10DefaultProducts()[1],
-                DefaultValues.create10DefaultProducts()[1].getAndSetSize(2),
                 false, 1, DefaultValues.createDefault3Customers()[0])));
 /*        restaurant.addOrder((new Order(DefaultValues.create10DefaultProducts()[1],false, 1,
                 DefaultValues.createDefault3Customers()[1])));

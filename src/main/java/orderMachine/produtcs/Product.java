@@ -15,21 +15,22 @@ public class Product {
     private int neededTimeToMakeInSeconds;
     //values
 
-    public Product(String name, String description, String defaultDescription,
+    public Product(String name, int size, String description, String defaultDescription,
                    int neededTimeToMakeInSeconds, double[] pricesForSizes) {
         this.name = name;
+        tabOfSizes = new String[]{"XS", "S", "M", "L", "XL", "XXL"};
+        this.size = getAndSetSize(size);
         this.description = description;
         this.defaultDescription = defaultDescription;
         this.pricesForSizes = pricesForSizes;
         this.isOneSizeProduct = false;
         this.amountOfSizes = this.pricesForSizes.length;
         this.neededTimeToMakeInSeconds = neededTimeToMakeInSeconds;
-        tabOfSizes = new String[]{"XS", "S", "M", "L", "XL", "XXL"};
     }
-    public Product(String name, String size, String description, String defaultDescription,
+    public Product(String name, String description, String defaultDescription,
                    int neededTimeToMakeInSeconds, double price) {
         this.name = name;
-        this.size = size;
+        size = "OneSize";
         this.description = description;
         this.defaultDescription = defaultDescription;
         this.price = price;
@@ -48,7 +49,7 @@ public class Product {
     }
 
     public String getSize() {
-        return size;
+            return size;
     }
     public String getAndSetSize(int number) {
         if(getAmountOfSizes() <= 6) {
@@ -111,6 +112,7 @@ public class Product {
             System.out.println("Size is wrong " + size);
             return -1;
             //error code
+            //$This is to correct, when adding product this not working
         }
     }
 

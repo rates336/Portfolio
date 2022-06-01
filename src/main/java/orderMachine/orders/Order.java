@@ -11,13 +11,13 @@ import java.util.stream.Stream;
 public class Order {
     private List<Product> listOfProductsOder = new ArrayList<>();
     private boolean deliveryOrNot;
-    private double totalPrice;
+    private double totalPrice = 0;
     private double deliveryCost;
     private double distance;
     private double amountWhenDeliveryIsFree;
     static Map<Integer, Integer> costForDeliveryDistance = new HashMap<>();
     private boolean isCompleted;
-    private int makingTimeInSeconds;
+    private int totalTimeMakingOrder = 0;
     private Customer customer;
     //basic information
 
@@ -27,12 +27,25 @@ public class Order {
         this.deliveryOrNot = deliveryOrNot;
         this.distance = distance;
         this.customer = customer;
+        for (int i = 0; i < listOfProductsOder.size(); i++) {
+            totalTimeMakingOrder += listOfProductsOder.get(i).getNeededTimeToMakeInSeconds();
+            if(listOfProductsOder.get(i).isOneSizeProduct())
+                totalPrice += listOfProductsOder.get(i).getPrice();
+            else
+                totalPrice += listOfProductsOder.get(i).getPriceForTheSize(
+                        listOfProductsOder.get(i).getSize());
+        }
     }
-    public Order(Product product, String size, boolean deliveryOrNot, double distance, Customer customer) {
+    public Order(Product product, boolean deliveryOrNot, double distance, Customer customer) {
         listOfProductsOder.add(product);
+        if(product.isOneSizeProduct())
+            totalPrice = product.getPrice();
+        else
+            totalPrice = product.getPriceForTheSize(product.getSize());
         this.deliveryOrNot = deliveryOrNot;
         this.distance = distance;
         this.customer = customer;
+        totalTimeMakingOrder += product.getNeededTimeToMakeInSeconds();
     }
 
     public static void setCostForDeliveryDistance() {
@@ -75,7 +88,11 @@ public class Order {
     }//now my solution upper is not working so it's temp implementation
     public void addProductToOrder(Product product) {
         listOfProductsOder.add(product);
-        makingTimeInSeconds += product.getNeededTimeToMakeInSeconds();
+        if (product.isOneSizeProduct())
+            totalPrice += product.getPrice();
+        else
+            totalPrice += product.getPriceForTheSize(product.getSize());
+        totalTimeMakingOrder += product.getNeededTimeToMakeInSeconds();
     }
     //add new product to order
     public void removeProductToOrder(Product product) {
@@ -114,7 +131,7 @@ public class Order {
     }
 
     public int getMakingTimeInSeconds() {
-        return makingTimeInSeconds;
+        return totalTimeMakingOrder;
     }
 
     public List<Product> getListOfProductsOder() {

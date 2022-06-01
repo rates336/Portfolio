@@ -25,7 +25,7 @@ public class ProductsCollections {
             try {
                 for (int i = 0; i < theProduct.getAmountOfSizes(); i++) {
                     mapOfProductsNoOneSize.put(theProduct.getName() + " Size: " +
-                            theProduct.getSize(i), theProduct.getPriceForTheSize(theProduct.getSize(i)));
+                            theProduct.getAndSetSize(i), theProduct.getPriceForTheSize(theProduct.getAndSetSize(i)));
                 }
                 mapOfProductsNames.put(theProduct.getName(), theProduct);
                 System.out.println("Process adding successfully finished");
@@ -61,7 +61,7 @@ public class ProductsCollections {
                     //temp values
                     if (tempInteger > 0) {
                         for (int i = 0; i < tempInteger - 1; i++) {
-                            mapOfProductsNoOneSize.remove(name + " Size: " + tempProduct.getSize(i));
+                            mapOfProductsNoOneSize.remove(name + " Size: " + tempProduct.getAndSetSize(i));
                         }
                         //deleting all sizes with map
                     } else {
@@ -86,20 +86,20 @@ public class ProductsCollections {
             Product tempProduct = mapOfProductsNames.get(name);
             int temp = -1;
             for (int i = 0; i < tempProduct.getAmountOfSizes(); i++) {
-                if(tempProduct.getSize(i).equals(size))
+                if(tempProduct.getAndSetSize(i).equals(size))
                     temp = i;
             }
             //checking what is position the product
             System.out.print(temp == -1 ? "\nsize entered is wrong" : "");
             //Error message
             try {
-                mapOfProductsNoOneSize.remove(name + " Size: " + tempProduct.getSize(temp));
+                mapOfProductsNoOneSize.remove(name + " Size: " + tempProduct.getAndSetSize(temp));
                 tempProduct.setAmountOfSizes(tempProduct.getAmountOfSizes() - 1);
                 //deleting and refactoring amountSize value
                 for (int i = temp; i < tempProduct.getAmountOfSizes() - 1; i++) {
-                    mapOfProductsNoOneSize.put(tempProduct.getName() + " Size: " + tempProduct.getSize(i),
-                            tempProduct.getPriceForTheSize(tempProduct.getSize(i + 1)));
-                    mapOfProductsNoOneSize.remove(tempProduct.getName() + " Size: " + tempProduct.getSize(i + 1));
+                    mapOfProductsNoOneSize.put(tempProduct.getName() + " Size: " + tempProduct.getAndSetSize(i),
+                            tempProduct.getPriceForTheSize(tempProduct.getAndSetSize(i + 1)));
+                    mapOfProductsNoOneSize.remove(tempProduct.getName() + " Size: " + tempProduct.getAndSetSize(i + 1));
                 }
                 //if size is not a last of all sizes moving sizes on their positions
                 System.out.println("Process removing product size with map finished successfully");

@@ -222,8 +222,8 @@ public class Restaurant {
         }
         currentMakingOrders[currentMakingOrders.length - 1] = listOfWaitingOrders.get(0);
         listOfWaitingOrders.remove(currentMakingOrders[currentMakingOrders.length - 1]);*/
-        List<Integer> timeToMakeOrder = new LinkedList<>();
-        int min;
+        List<Integer> timeToMakeOrder = new ArrayList<Integer>();
+        int min = 0;
         System.out.println(currentMakingOrders[0].getMakingTimeInSeconds());
         System.out.println(currentMakingOrders[0]);
         System.out.println(currentMakingOrders[0].getTotalPrice());
@@ -235,14 +235,14 @@ public class Restaurant {
                 System.out.println(currentMakingOrders[i].getMakingTimeInSeconds());
             }
             break;
-            /*if (Arrays.stream(timeToMakeOrder).anyMatch(e -> e > 0)) {
+            if (timeToMakeOrder.stream().anyMatch(e -> e > 0)) {
                 //min = Arrays.stream(currentMakingOrders).
-                min = Arrays.stream(timeToMakeOrder).min().orElse(0);
+                min = timeToMakeOrder.stream().mapToInt(e -> e).min().orElse(0);
                 if (wait(min)) {
-                    for (int i = 0; i < timeToMakeOrder.length; i++) {
-                        timeToMakeOrder[i] -= min;
-                        if (timeToMakeOrder[i] <= 0) {
-                            if (timeToMakeOrder[i] == 0) {
+                    for (int i = 0; i < timeToMakeOrder.size(); i++) {
+                        //timeToMakeOrder.get(i) -= min;
+                        if (timeToMakeOrder.get(i) <= 0) {
+                            if (timeToMakeOrder.get(i) == 0) {
                                 System.out.println("Order for " + currentMakingOrders[i].getCustomer() + " has been finished.");
                                 //dodaj do utargu
                                 currentMakingOrders[i] = null;
@@ -254,7 +254,7 @@ public class Restaurant {
                         }
                     }
                 }
-            }*/
+            }
         }
         /*wait(tempOrder.getMakingTimeInSeconds());
         {
