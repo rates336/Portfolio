@@ -170,15 +170,11 @@ public class Restaurant {
         }*/
 
         if(!listOfWaitingOrders.isEmpty()) {
-            System.out.println("control 1");
             for (int i = 0; i < currentMakingOrders.length; i++) {
-                System.out.println("control 2 " + i);
                 if (currentMakingOrders[i] == null) {
-                    System.out.println("control 3");
                     currentMakingOrders[i] = listOfWaitingOrders.get(0);
                     listOfWaitingOrders.remove(0);
                     if(listOfWaitingOrders.isEmpty()) {
-                        System.out.println("control 4");
                         break;
                     }
                 } else {
@@ -189,7 +185,6 @@ public class Restaurant {
         } else {
             System.out.println("List of waiting orders is empty.");
         }
-        System.out.println("to control");
         tryCompleteOrder();
     }
     public boolean wait(int seconds) {
@@ -207,7 +202,6 @@ public class Restaurant {
         }
         while (cal.get(Calendar.SECOND) + (60 * minutes) < startSec + seconds) {
             cal.setTime(new Date());
-            System.out.println(cal.getTime() + " Sec");
         }
         return true;
     }
@@ -222,25 +216,18 @@ public class Restaurant {
         }
         currentMakingOrders[currentMakingOrders.length - 1] = listOfWaitingOrders.get(0);
         listOfWaitingOrders.remove(currentMakingOrders[currentMakingOrders.length - 1]);*/
-        List<Integer> timeToMakeOrder = new ArrayList<Integer>();
+        LinkedList<Integer> timeToMakeOrder = new LinkedList<>();
         int min = 0;
-        System.out.println(currentMakingOrders[0].getMakingTimeInSeconds());
-        System.out.println(currentMakingOrders[0]);
-        System.out.println(currentMakingOrders[0].getTotalPrice());
         while (Arrays.stream(currentMakingOrders).anyMatch(Objects::nonNull)) {
             //timeToMakeOrder.addAll()
-                    Arrays.stream(currentMakingOrders).filter(e -> e != null).mapToInt(e -> e.getMakingTimeInSeconds()).forEach(timeToMakeOrder::add);
-            for (int i = 0; i < timeToMakeOrder.size(); i++) {
-                System.out.println(timeToMakeOrder.get(i));
-                System.out.println(currentMakingOrders[i].getMakingTimeInSeconds());
-            }
-            break;
+            Arrays.stream(currentMakingOrders)
+                    .filter(e -> e != null).mapToInt(e -> e.getMakingTimeInSeconds()).forEach(timeToMakeOrder::add);
             if (timeToMakeOrder.stream().anyMatch(e -> e > 0)) {
                 //min = Arrays.stream(currentMakingOrders).
                 min = timeToMakeOrder.stream().mapToInt(e -> e).min().orElse(0);
                 if (wait(min)) {
                     for (int i = 0; i < timeToMakeOrder.size(); i++) {
-                        //timeToMakeOrder.get(i) -= min;
+                        timeToMakeOrder.set(i, (timeToMakeOrder.get(0) - min));
                         if (timeToMakeOrder.get(i) <= 0) {
                             if (timeToMakeOrder.get(i) == 0) {
                                 System.out.println("Order for " + currentMakingOrders[i].getCustomer() + " has been finished.");
