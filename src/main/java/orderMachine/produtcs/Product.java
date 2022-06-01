@@ -54,7 +54,6 @@ public class Product {
     public String getAndSetSize(int number) {
         if(getAmountOfSizes() <= 6) {
             size = getTabOfSizes()[number];
-            return size;
         }
         //default cases
         else {
@@ -63,9 +62,9 @@ public class Product {
                 tempTab[i] = "size" + i;
             }
             size = tempTab[number];
-            return size;
             //special cases
         }
+        return size;
     } //If user not need so much sizes can use default cases which are a good look
     public String getDescription() {
         return description;

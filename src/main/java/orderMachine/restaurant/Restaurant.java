@@ -174,8 +174,10 @@ public class Restaurant {
                 if (currentMakingOrders[i] == null) {
                     currentMakingOrders[i] = listOfWaitingOrders.get(0);
                     listOfWaitingOrders.remove(0);
+                    //replace nulls orders with list of waiting orders
                     if(listOfWaitingOrders.isEmpty()) {
                         break;
+                        //check does loop must be working
                     }
                 } else {
                     if(currentMakingOrders.length - 1 == i)
@@ -185,24 +187,24 @@ public class Restaurant {
         } else {
             System.out.println("List of waiting orders is empty.");
         }
-        tryCompleteOrder();
+        tryCompleteOrder(); //open a method which try made orders
     }
     public boolean wait(int seconds) {
         Calendar cal = new GregorianCalendar();
-
         int startSec = cal.get(Calendar.SECOND);
         int startMin = cal.get(Calendar.MINUTE);
         int minutes = (Calendar.SECOND + seconds) / 60;
         if(Calendar.SECOND + seconds >= 60) {
             seconds = (Calendar.SECOND + seconds) % 60;
-            while(Calendar.MINUTE < startMin + minutes){
+            while(cal.get(Calendar.MINUTE) < startMin + minutes){
                 cal.setTime(new Date());
-                System.out.println(cal.getTime() + " Min");
             }
+            //loop when minutes are analyzing
         }
         while (cal.get(Calendar.SECOND) + (60 * minutes) < startSec + seconds) {
             cal.setTime(new Date());
         }
+        //loop when seconds are analyzing
         return true;
     }
     public void tryCompleteOrder() {
@@ -219,24 +221,32 @@ public class Restaurant {
         LinkedList<Integer> timeToMakeOrder = new LinkedList<>();
         int min = 0;
         while (Arrays.stream(currentMakingOrders).anyMatch(Objects::nonNull)) {
+            //Creating loop which working to time making all orders
             //timeToMakeOrder.addAll()
             Arrays.stream(currentMakingOrders)
-                    .filter(e -> e != null).mapToInt(e -> e.getMakingTimeInSeconds()).forEach(timeToMakeOrder::add);
+                    .filter(e -> e != null).mapToInt(Order::getMakingTimeInSeconds).forEach(timeToMakeOrder::add);
+            //Fill list a time orders making
             if (timeToMakeOrder.stream().anyMatch(e -> e > 0)) {
+                //Check Does some order has not completed
                 //min = Arrays.stream(currentMakingOrders).
                 min = timeToMakeOrder.stream().mapToInt(e -> e).min().orElse(0);
+                //Find a minimal time to finish order
                 if (wait(min)) {
+                    //wait for to create an order
                     for (int i = 0; i < timeToMakeOrder.size(); i++) {
                         timeToMakeOrder.set(i, (timeToMakeOrder.get(0) - min));
+                        //minus minimal time from all orders
                         if (timeToMakeOrder.get(i) <= 0) {
                             if (timeToMakeOrder.get(i) == 0) {
                                 System.out.println("Order for " + currentMakingOrders[i].getCustomer() + " has been finished.");
+                                //check does some order has been completed
                                 //dodaj do utargu
                                 currentMakingOrders[i] = null;
                             }
                             if (!listOfWaitingOrders.isEmpty()) {
                                 currentMakingOrders[i] = listOfWaitingOrders.get(0);
                                 listOfWaitingOrders.remove(0);
+                                //check does some order waiting to create
                             }
                         }
                     }
@@ -268,5 +278,5 @@ public class Restaurant {
                 temp++;
         }
         return temp;
-    }
+    } //methods which check how many workers some type working in this restaurant
 }
