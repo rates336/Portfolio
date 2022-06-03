@@ -23,7 +23,7 @@ public class ProductsCollections {
                 Info.helpToAddingManySizesOfProduct();
             //question to user: Do you need to help in create?
             try {
-                for (int i = 0; i < theProduct.getAmountOfSizes(); i++) {
+                for (int i = 0; i < theProduct.getAmountOfSizes() - 1; i++) {
                     mapOfProductsNoOneSize.put(theProduct.getName() + " Size: " +
                             theProduct.getAndSetSize(i), theProduct.getPriceForTheSize(theProduct.getAndSetSize(i)));
                 }

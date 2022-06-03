@@ -51,7 +51,7 @@ public class Restaurant {
         return new Date();
     }//Getter
 
-    public void start(){
+    public void start() {
         //currentRemainingTime = 0;
         currentSeconds = Calendar.SECOND;
         currentMinutes = Calendar.MINUTE;
@@ -59,7 +59,7 @@ public class Restaurant {
         System.out.println("Restaurant started work");
     }
 
-    public void stop(){
+    public void stop() {
         //in future can be stopped working without make meal in this time
     }
 
@@ -118,11 +118,12 @@ public class Restaurant {
     private String reformatTime(double time, String toReturnTypeString) {
         int hours = (int) time;
         int minutes = (int) ((time - hours) * 100);
-        if(minutes > 9)
+        if (minutes > 9)
             return ("" + hours + ":" + minutes);
         else
             return "" + hours + ":" + "0" + minutes;
     }
+
     private int[] reformatTime(double time, int[] toReturnTypeTabOfInts) {
         int hours = (int) time;
         int minutes = (int) ((time - hours) * 100);
@@ -169,18 +170,18 @@ public class Restaurant {
             leftTimeMaking[i] = currentMakingOrders[i].getMakingTimeInSeconds();
         }*/
 
-        if(!listOfWaitingOrders.isEmpty()) {
+        if (!listOfWaitingOrders.isEmpty()) {
             for (int i = 0; i < currentMakingOrders.length; i++) {
                 if (currentMakingOrders[i] == null) {
                     currentMakingOrders[i] = listOfWaitingOrders.get(0);
                     listOfWaitingOrders.remove(0);
                     //replace nulls orders with list of waiting orders
-                    if(listOfWaitingOrders.isEmpty()) {
+                    if (listOfWaitingOrders.isEmpty()) {
                         break;
                         //check does loop must be working
                     }
                 } else {
-                    if(currentMakingOrders.length - 1 == i)
+                    if (currentMakingOrders.length - 1 == i)
                         System.out.println("All Chefs working now");
                 }
             }
@@ -189,24 +190,30 @@ public class Restaurant {
         }
         tryCompleteOrder(); //open a method which try made orders
     }
+
     public boolean wait(int seconds) {
-        Calendar cal = new GregorianCalendar();
-        int startSec = cal.get(Calendar.SECOND);
-        int startMin = cal.get(Calendar.MINUTE);
-        int minutes = (Calendar.SECOND + seconds) / 60;
-        if(Calendar.SECOND + seconds >= 60) {
-            seconds = (Calendar.SECOND + seconds) % 60;
-            while(cal.get(Calendar.MINUTE) < startMin + minutes){
-                cal.setTime(new Date());
-            }
-            //loop when minutes are analyzing
+        Calendar calWhenFinish = Calendar.getInstance(), calCurrent = new GregorianCalendar();
+        calWhenFinish.setTime(new Date());
+        calCurrent.setTime(new Date());
+
+        seconds = (calCurrent.get(Calendar.SECOND) + seconds) % 60;
+        int minutes = (calCurrent.get(Calendar.SECOND) + seconds) / 60 + calCurrent.get(Calendar.MINUTE);
+
+        calWhenFinish.set(Calendar.SECOND, seconds);
+        calWhenFinish.set(Calendar.MINUTE, minutes);
+
+        System.out.println(calWhenFinish.get(Calendar.MINUTE) + " vs " + calCurrent.get(Calendar.MINUTE));
+        System.out.println(calWhenFinish.get(Calendar.SECOND) + " vs " + calCurrent.get(Calendar.SECOND));
+        System.out.println();
+
+        while (calWhenFinish.get(Calendar.MINUTE) >= calCurrent.get(Calendar.MINUTE) &&
+                calWhenFinish.get(Calendar.SECOND) >= calCurrent.get(Calendar.SECOND)) {
+            calCurrent.setTime(new Date());
         }
-        while (cal.get(Calendar.SECOND) + (60 * minutes) < startSec + seconds) {
-            cal.setTime(new Date());
-        }
-        //loop when seconds are analyzing
         return true;
+        //in loop need to condition for hour and days
     }
+
     public void tryCompleteOrder() {
         //if(Pantry have Order.neededElements)
         //in future this if check does restaurant have a needed elements to cook meal
@@ -222,7 +229,31 @@ public class Restaurant {
         int min = 0;
         while (Arrays.stream(currentMakingOrders).anyMatch(Objects::nonNull)) {
             //Creating loop which working to time making all orders
-            //timeToMakeOrder.addAll()
+            List<Order> tempOrders = Arrays.stream(currentMakingOrders)
+                    .filter(Objects::nonNull).filter(e -> e.getMakingTimeInSeconds() == 0).toList();
+            Order[] tempTab;
+            tempTab = Arrays.stream(currentMakingOrders)
+                    .filter(Objects::nonNull).filter(e -> e.getMakingTimeInSeconds() > 0)
+                    .toArray(Order[]::new);
+
+            Arrays.fill(currentMakingOrders, null);
+            System.arraycopy(tempTab, 0, currentMakingOrders, 0, tempTab.length);
+
+            for (Order tempOrder :
+                    tempOrders) {
+                tempOrder.setIsCompleted(true);
+                //dodanie do codziennych zamówień
+                System.out.println(tempOrder + " is completed");
+            }
+            tempOrders = listOfWaitingOrders.stream()
+                    .filter(Objects::nonNull).filter(e -> e.getMakingTimeInSeconds() == 0).toList();
+            for (Order tempOrder :
+                    tempOrders) {
+                tempOrder.setIsCompleted(true);
+                //dodanie do codziennych zamówień
+                System.out.println(tempOrder + " is completed");
+            }
+
             Arrays.stream(currentMakingOrders)
                     .filter(e -> e != null).mapToInt(Order::getMakingTimeInSeconds).forEach(timeToMakeOrder::add);
             //Fill list a time orders making
@@ -252,7 +283,9 @@ public class Restaurant {
                     }
                 }
             }
-        }
+
+
+    }
         /*wait(tempOrder.getMakingTimeInSeconds());
         {
             //if dostawa

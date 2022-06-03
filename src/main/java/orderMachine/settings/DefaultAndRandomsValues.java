@@ -2,18 +2,23 @@ package orderMachine.settings;
 
 import orderMachine.adres.Adres;
 import orderMachine.customers.Customer;
+import orderMachine.orders.Order;
 import orderMachine.produtcs.Product;
 import orderMachine.restaurant.Restaurant;
 import orderMachine.workers.*;
 
-public class DefaultValues {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class DefaultAndRandomsValues {
 
     public static Product[] create10DefaultProducts() {
         Product product0 = new Product("Vege Burger", 2, "Vege Burger", "Vege Burger",
-                15, new double[]{0,1,2,3});
+                0, new double[]{0,1,2,3});
         Product product1 = new Product("Ham Burger", 3, "Ham Burger", "Ham Burger",
-                18, new double[]{0,1,2,3});
-        Product product2 = new Product("Pizza", 5,"Pizza", "Pizza",
+                18, new double[]{0,1,2,3,4,5});
+        Product product2 = new Product("Pizza", 7,"Pizza", "Pizza",
                 10, new double[]{0,1,2,3,4,5,6,7,8,9,10,11});
         Product product3 = new Product("Fries", 1, "Fries", "Fries",
                 4, new double[]{0,1,2});
@@ -55,13 +60,13 @@ public class DefaultValues {
         return new Worker[]{manager1, chef1, chef2, chef3, chef4, waiter1, waiter2,
         waiter3, deliveryMan1, deliveryMan2, deliveryMan3};
     }
-    public static Adres[] createDefault3SavedAdres(){
+    public static Adres[] createDefault3SavedAdres() {
         Adres adres1 = new Adres("House", "Poland", "Warsaw","Koszykowa",15);
         Adres adres2 = new Adres("Work", "Germany", "Berlin", "Street", 11,36,3);
         Adres adres3 = new Adres("Friends", "Poland", "Pruszków", "Jeziorowa", 119, 19, 1);
         return new Adres[]{adres1, adres2, adres3};
     }
-    public static Customer[] createDefault3Customers(){
+    public static Customer[] createDefault3Customers() {
         Customer customer1 = new Customer("Adrian", 2001,
                 new Adres("House", "Poland", "Warsaw","Koszykowa",15));
         Customer customer2 = new Customer("Alan", 2005,
@@ -70,10 +75,25 @@ public class DefaultValues {
                 new Adres("Friends", "Poland", "Pruszków", "Jeziorowa", 119, 19, 1));
         return new Customer[]{customer1, customer2, customer3};
     }
-    public static Restaurant[] createDefault1Restaurant(){
+    public static Restaurant[] createDefault1Restaurant() {
         Restaurant restaurant1 = new Restaurant("The time to street FastFood",
                 new Adres("Restaurant #001", "Poland", "Warsaw", "Złota", 49),
                 new Manager("Olek", 1997), 12.00, 24.00);
         return new Restaurant[]{restaurant1};
+    }
+    public static Order createRandomOrder() {
+        Random random = new Random();
+        int quantityProducts = random.nextInt(10);
+        int numberOfProducts = random.nextInt(9);
+        List<Product> theList = new ArrayList<>();
+
+        Product[] listOfProducts = create10DefaultProducts();
+        for (int i = 0; i < numberOfProducts; i++) {
+            for (int j = 0; j < quantityProducts; j++) {
+                theList.add(listOfProducts[i]);
+            }
+        }
+        return new Order(theList, false, 2.5,
+                DefaultAndRandomsValues.createDefault3Customers()[1]);
     }
 }

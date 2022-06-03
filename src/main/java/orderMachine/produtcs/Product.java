@@ -19,12 +19,12 @@ public class Product {
                    int neededTimeToMakeInSeconds, double[] pricesForSizes) {
         this.name = name;
         tabOfSizes = new String[]{"XS", "S", "M", "L", "XL", "XXL"};
+        this.pricesForSizes = pricesForSizes;
+        this.amountOfSizes = this.pricesForSizes.length;
         this.size = getAndSetSize(size);
         this.description = description;
         this.defaultDescription = defaultDescription;
-        this.pricesForSizes = pricesForSizes;
         this.isOneSizeProduct = false;
-        this.amountOfSizes = this.pricesForSizes.length;
         this.neededTimeToMakeInSeconds = neededTimeToMakeInSeconds;
     }
     public Product(String name, String description, String defaultDescription,
@@ -54,8 +54,7 @@ public class Product {
     public String getAndSetSize(int number) {
         if(getAmountOfSizes() <= 6) {
             size = getTabOfSizes()[number];
-        }
-        //default cases
+        } //default cases
         else {
             String[] tempTab = new String[getAmountOfSizes()];
             for (int i = 0; i < getAmountOfSizes(); i++) {
@@ -151,5 +150,9 @@ public class Product {
 
     public int getNeededTimeToMakeInSeconds() {
         return neededTimeToMakeInSeconds;
+    }
+
+    public void setNeededTimeToMakeInSeconds(int neededTimeToMakeInSeconds) {
+        this.neededTimeToMakeInSeconds = neededTimeToMakeInSeconds;
     }
 }
