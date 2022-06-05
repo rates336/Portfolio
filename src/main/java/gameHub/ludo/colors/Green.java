@@ -6,9 +6,17 @@ public class Green implements ColorOfPlayer {
     String name;
     int[] pawnsPosition = new int[4];
     public String getName(){
-        return "";
+        return name;
     }
     public int getPawnPosition(int number){
         return 0;
+    }
+
+    public Green() {
+        name = "Green";
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
