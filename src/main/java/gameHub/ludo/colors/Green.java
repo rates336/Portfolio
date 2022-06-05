@@ -3,6 +3,7 @@ package gameHub.ludo.colors;
 import gameHub.ludo.colors.ColorOfPlayer;
 
 public class Green implements ColorOfPlayer {
+    char colorSymbol = 'b';
     String name;
     int[] pawnsPosition = new int[4];
     public String getName(){
@@ -18,5 +19,8 @@ public class Green implements ColorOfPlayer {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public char getColorSymbol() {
+        return colorSymbol;
     }
 }
