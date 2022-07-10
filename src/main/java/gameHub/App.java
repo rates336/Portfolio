@@ -1,11 +1,9 @@
 package gameHub;
 
-import gameHub.engine.RPS.Engine;
-import gameHub.stats.Statistics;
+import gameHub.RPSSL.engine.RPS.Engine;
+import gameHub.RPSSL.stats.Statistics;
 
-import java.io.File;
 import java.util.List;
-import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {

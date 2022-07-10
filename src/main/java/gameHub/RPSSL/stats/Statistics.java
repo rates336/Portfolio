@@ -1,4 +1,4 @@
-package gameHub.stats;
+package gameHub.RPSSL.stats;
 
 import java.io.File;
 import java.io.PrintWriter;

@@ -1,4 +1,4 @@
-package gameHub.info.RPS;
+package gameHub.RPSSL.info.RPS;
 
 import java.util.Scanner;
 

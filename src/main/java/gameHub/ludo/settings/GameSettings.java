@@ -109,10 +109,9 @@ public class GameSettings {
             howManyComputersAccountsPlay = number;
     }
     public void colorsWitchAreUseToPlay() {
-        ColorOfPlayer[] colorsUsing = new ColorOfPlayer[totalPlayers];
+        ColorOfPlayer[] colorsUsing = new ColorOfPlayer[getAndSetTotalPlayers()];
         if(colorsUsing.length == 4) {
-            colorsUsing = defaultSetOfColors;
-            this.colorsUsing = colorsUsing;
+            this.colorsUsing = defaultSetOfColors;
             return;
         }
         int[] numbersOfColors = new int[colorsUsing.length];
@@ -181,7 +180,7 @@ public class GameSettings {
         System.out.println("3 - In console entered color or nickname this player");
         int number = scanner.nextInt();
         switch (number) {
-            case 1 -> drawFirstPlayer(number);
+            case 1 -> drawFirstPlayer();
             case 2 -> SelectHighestNumber(number);
             case 3 -> setManual();
             default -> {
@@ -198,7 +197,7 @@ public class GameSettings {
                 "if higher than one player have been one of the highest this players roll again.");
         System.out.println("3 - In console entered color or nickname this player");
         switch (number) {
-            case 1 -> drawFirstPlayer(number);
+            case 1 -> whoStart = drawFirstPlayer();
             case 2 -> SelectHighestNumber(number);
             case 3 -> setManual();
             default -> {
@@ -207,15 +206,52 @@ public class GameSettings {
             }
         }
     }
-    public void drawFirstPlayer(int number) {
+    public ColorOfPlayer drawFirstPlayer() {
         Random random = new Random();
-        int temp = random.nextInt(totalPlayers - 1);
-        whoStart = colorsUsing[temp];
+        int temp = random.nextInt(2);
+        return colorsUsing[temp];
     }
     public void SelectHighestNumber(int number) {
 
     }
     public void setManual() {
 
+    }
+
+    public ColorOfPlayer[] getDefaultSetOfColors() {
+        return defaultSetOfColors;
+    }
+
+    public int[] getModesOfGame() {
+        return modesOfGame;
+    }
+
+    public int getHowManyRealPlayersPlay() {
+        return howManyRealPlayersPlay;
+    }
+
+    public boolean isPlayWithComputer() {
+        return playWithComputer;
+    }
+
+    public int getHowManyComputersAccountsPlay() {
+        return howManyComputersAccountsPlay;
+    }
+
+    public int getAndSetTotalPlayers() {
+        totalPlayers = howManyComputersAccountsPlay + howManyRealPlayersPlay;
+        return totalPlayers;
+    }
+
+    public ColorOfPlayer[] getColorsUsing() {
+        return colorsUsing;
+    }
+
+    public String[] getNicknames() {
+        return nicknames;
+    }
+
+    public ColorOfPlayer getWhoStart() {
+        return whoStart;
     }
 }
